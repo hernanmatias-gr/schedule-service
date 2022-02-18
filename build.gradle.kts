@@ -27,7 +27,13 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "mockito-core")
+	}
+	testImplementation("io.kotest:kotest-runner-junit5:4.6.3")
+	testImplementation("io.kotest:kotest-extensions-spring:4.4.3")
+	testImplementation("io.kotest.extensions:kotest-extensions-pitest:1.0.1")
+	testImplementation("com.ninja-squad:springmockk:3.0.1")
 }
 
 tasks.withType<KotlinCompile> {
