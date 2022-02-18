@@ -7,14 +7,15 @@ import com.inmarket.schedule.model.Student
 import org.springframework.stereotype.Component
 
 @Component("courseMapper")
-class CourseMapper : AbstractMapper<CourseDto, Course> {
+class CourseMapper(private val studentMapper: StudentMapper) : AbstractMapper<CourseDto, Course> {
 
 
     override fun toEntity(dto: CourseDto) =
         Course(
             code = dto.code,
             title = dto.title,
-            description = dto.description
+            description = dto.description,
+            students = dto.students?.map { studentMapper.toEntity(it) }
         )
 
     override fun toDto(entity: Course): CourseDto {

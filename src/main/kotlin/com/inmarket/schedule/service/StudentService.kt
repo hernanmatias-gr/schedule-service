@@ -1,6 +1,7 @@
 package com.inmarket.schedule.service
 
 import com.inmarket.schedule.dto.StudentDto
+import com.inmarket.schedule.exception.ResourceNotFoundException
 import com.inmarket.schedule.mapper.StudentMapper
 import com.inmarket.schedule.model.Student
 import com.inmarket.schedule.repository.StudentRepository
@@ -15,5 +16,6 @@ class StudentService(
 
 
     fun findAllByCourseCode(courseCode: Int) =
-        studentRepository.findByCourses_Code(courseCode)
+        studentRepository.findByCourses_Code(courseCode).takeIf { it.isNotEmpty() }
+            ?: throw ResourceNotFoundException("Resource with $courseCode not found")
 }

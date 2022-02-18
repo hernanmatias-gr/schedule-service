@@ -1,5 +1,6 @@
 package com.inmarket.schedule.service
 
+import com.inmarket.schedule.exception.ResourceNotFoundException
 import com.inmarket.schedule.mapper.AbstractMapper
 import com.inmarket.schedule.repository.CustomRepository
 import org.springframework.data.domain.Example
@@ -24,6 +25,7 @@ abstract class AbstractService<R, T : Any, ID : Any>(
     fun findById(id: ID) =
         repository
             .findByIdOrNull(id)
+            ?: throw ResourceNotFoundException("Resource with $id not found")
 
     fun save(dto: R) =
         mapper
